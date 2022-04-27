@@ -45,7 +45,7 @@
                         <p:inputText id="phone" validatorMessage="Nummer ungültig" value="#{registrationBean.phone}">
                             <f:validateRegex pattern="\d+|"/>
                             <f:ajax render="phoneMsg" event="keyup"/>
-                        </p:inputText>
+                           </p:inputText>
                         <p:message id="phoneMsg" for="phone"/>
                         
                         <p:outputLabel for="@next" value="Benutzername"/>

@@ -6,7 +6,10 @@ package com.mycompany.pratikum1;
 
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-
+import com.mycompany.pratikum1.UserManagerBean;
+import javax.faces.application.Application;
+import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 /**
  *
  * @author cano
@@ -28,7 +31,12 @@ public class RegistrationBean {
     private String repeatedPassword;
     
     public void register(){
-        // Benutzerdaten in die Datenbank schreiben
+        FacesContext cxt = FacesContext.getCurrentInstance();
+        Application app = cxt.getApplication();
+        ValueBinding binding = app.createValueBinding("#{userManagerBean}");
+        UserManagerBean userMng = (UserManagerBean) binding.getValue(cxt);
+        System.out.println("Method Calling: " + userMng.getUser("admin"));
+        System.out.println("Username: " + userMng.getUser("admin").getUsername());
     }
     
 

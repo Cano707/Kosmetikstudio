@@ -42,8 +42,8 @@ public class UserManagerBean implements Serializable {
         return new User();
     }
     
-    public boolean addUser() {
-        
+    public void addUser(User u) {
+        userList.add(u);
     }
     
 }
