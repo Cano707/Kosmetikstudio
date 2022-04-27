@@ -7,22 +7,20 @@ package com.mycompany.pratikum1;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
-import com.mycompany.pratikum1.User;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.SessionScoped;
+import com.mycompany.pratikum1.User;
+import javax.faces.bean.ManagedBean;
 
 /**
  *
  * @author cano
  */
-@Named(value = "userManagerBean")
+@ManagedBean(name = "userManagerBean", eager=true)
 @SessionScoped
 public class UserManagerBean implements Serializable {
 
     private ArrayList<User> userList;
-    
-    // Will be moved to the DB
-    User admin = new User("admin", "secret");
     
     
     public UserManagerBean() {
@@ -30,12 +28,15 @@ public class UserManagerBean implements Serializable {
     
     @PostConstruct
     public void init() {
+        // Will be moved to the DB
+        userList = new ArrayList<>();
+        User admin = new User("admin", "secret");
         userList.add(admin);
     }
     
     public User getUser(String username) {
         for (User u : userList) {
-            if (u.getSurname().equals(username)) {
+            if (u.getUsername().equals(username)) {
                 return u;
             }
         }
