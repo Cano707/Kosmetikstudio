@@ -4,31 +4,21 @@
  */
 package com.mycompany.pratikum1;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 /**
  *
  * @author cano
  */
 @Named(value = "registrationBean")
-@RequestScoped
+@SessionScoped
 public class RegistrationBean implements Serializable {
     
     private static final Logger LOGGER = Logger.getLogger(RegistrationBean.class.getName());
@@ -53,35 +43,19 @@ public class RegistrationBean implements Serializable {
     public void init() {
         LOGGER.info("Init: RegisterBean");
         userList = userMng.getUserList();
-        System.out.println("INIT");
-        for(int i = 0; i < userList.size(); i++) {
-            System.out.println(userList.get(i).getUsername());
-        }
-        System.out.println("INIT");
     }
     
     public void register(){
-        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        for(int i = 0; i < userList.size(); i++) {
-            System.out.println(userList.get(i).getUsername());
-        }
-        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-        
+
         FacesContext cxt = FacesContext.getCurrentInstance();
-        User user = new User(salutation, name, surname, email, phone, username, phc.getPwdHash(password));
+        User user = new User(UserManagerBean.getUid(), salutation, name, surname, email, phone, username, phc.getPwdHash(password));
         if(userMng.getUserList().isEmpty()) {
             userMng.addUser(user);
         } else {
             boolean ok = true;
             for(User u : userList){
-                System.out.println("##################");
-                System.out.println(u.getUsername());
-                System.out.println(username);
-                System.out.println(password);
-                System.out.println(email);
                 
                 if(u.getUsername().equals(username) || u.getEmail().equals(email)) {
-                    System.out.println("DWADAOWJDAWIODJ");
                     ok = false;
                     FacesMessage fm = new FacesMessage("Benutzer existiert bereits!");
                     fm.setSeverity(FacesMessage.SEVERITY_ERROR);

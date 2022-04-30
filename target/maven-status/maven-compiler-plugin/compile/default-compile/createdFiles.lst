@@ -12,6 +12,7 @@ com/mycompany/praktikum1/registrationValidator/NameValidator.class
 com/mycompany/pratikum1/ServiceManagerBean.class
 com/mycompany/pratikum1/SessionBean.class
 com/mycompany/pratikum1/User.class
+com/mycompany/pratikum1/UserManagerSQLBean.class
 com/mycompany/praktikum1/registrationValidator/UsernameValidator.class
 com/mycompany/praktikum1/registrationValidator/EmailValidator.class
 com/mycompany/praktikum1/registrationValidator/PhoneValidator.class
