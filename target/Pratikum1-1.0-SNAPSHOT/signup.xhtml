@@ -9,7 +9,8 @@
     <h:body>
         <ui:composition template="template/master.xhtml">
             <ui:define name="content">
-                <h:form>
+                <h:form id="registration-form">
+                    <p:growl id="growl-sticky" for="sticky-key" />
                     <h:panelGrid id="registration-grid" columns="3">
                         
                         <p:outputLabel for="@next" value="Anrede"/>
@@ -19,52 +20,54 @@
                             <f:selectItem itemLabel="Divers" itemValue="Divers"/>
                         </p:selectOneRadio>
                         <p:message id="saltutationMsg" for="salutation"/> 
-                        
+
                         <p:outputLabel for="@next" value="Name"/>
-                        <p:inputText id="name" required="True" requiredMessage="Pflichtfeld" validatorMessage="Keine Sonderzeichen; Mind. Länge 1 Zeichen" value="#{registrationBean.name}">
+                        <p:inputText id="name" validator="nameValidator" required="True" requiredMessage="Pflichtfeld" validatorMessage="Keine Sonderzeichen; Mind. Länge 1 Zeichen"  value="#{registrationBean.name}">
                             <f:validateRegex pattern="[a-zA-Z]+"/>
-                            <f:ajax render="nameMsg" event="keyup"/>
+                            <f:ajax render="nameMsg"  event="keyup"/>
                         </p:inputText>
                         <p:message id="nameMsg" for="name"/>
-                        
+
                         <p:outputLabel for="@next" value="Nachname"/>
-                        <p:inputText id="surname" required="True" requiredMessage="Pflichtfeld" validatorMessage="Keine Sonderzeichen; Mind. Länge 1 Zeichen" value="#{registrationBean.surname}">
+                        <p:inputText id="surname" validator="surnameValidator" required="True" requiredMessage="Pflichtfeld" validatorMessage="Keine Sonderzeichen; Mind. Länge 1 Zeichen" value="#{registrationBean.surname}">
                             <f:validateRegex pattern="[a-zA-Z]+"/>
-                            <f:ajax render="surname" event="keyup"/>  
+                            <f:ajax render="surnameMsg" event="keyup"/>  
                         </p:inputText>
                         <p:message id="surnameMsg" for="surname"/>
-                        
+
                         <p:outputLabel for="@next" value="E-Mail (optional)"/>
-                        <p:inputText id="email" validatorMessage="E-Mail ungültig"  value="#{registrationBean.email}">
-                            <f:validateRegex pattern="\w+@\w+\.\w+|"/>
+                        <p:inputText id="email" validator="emailValidator" validatorMessage="E-Mail ungültig"  value="#{registrationBean.email}">
+                            <f:validateRegex pattern="[\w\d]+@[\w\d]+\.[\w\d]+|"/>
                             <f:ajax render="emailMsg" event="keyup"/>
                         </p:inputText>
                         <p:message id="emailMsg" for="email"/>
                         
                         <p:outputLabel for="@next" value="Telefon"/>
-                        <p:inputText id="phone" validatorMessage="Nummer ungültig" value="#{registrationBean.phone}">
-                            <f:validateRegex pattern="\d+|"/>
+                        <p:inputText id="phone" validator="phoneValidator" validatorMessage="Nummer ungültigDDD" value="#{registrationBean.phone}">
+                            <f:validateRegex pattern="[\d]+|"/>
                             <f:ajax render="phoneMsg" event="keyup"/>
                            </p:inputText>
                         <p:message id="phoneMsg" for="phone"/>
-                        
+
                         <p:outputLabel for="@next" value="Benutzername"/>
-                        <p:inputText id="username" validatorMessage="Benutzername ungültig" required="True" requiredMessage="Pflichtfeld" value="#{registrationBean.username}">
+                        <p:inputText id="username" validator="usernameValidator" validatorMessage="Benutzername ungültig" required="True" requiredMessage="Pflichtfeld" value="#{registrationBean.username}">
                             <f:validateRegex pattern="^[a-z0-9_-]{3,15}$" />
                             <f:ajax render="usernameMsg" event="keyup"/>
                         </p:inputText>
                         <p:message id="usernameMsg" for="username"/>
-                        
+
                         <p:outputLabel for="@next" value="Passwort"/>
-                        <p:inputText id="password" required="True" requiredMessage="Pflichtfeld" validatorMessage="Mind. 8 Zeichen; 1 Sonderzeichen; 1 Klein- und Großbuchstaben" value="#{registrationBean.password}">
+                        <p:password id="password" validator="passwordValidator" required="True" requiredMessage="Pflichtfeld" validatorMessage="Mind. 8 Zeichen; 1 Sonderzeichen; 1 Klein- und Großbuchstaben" value="#{registrationBean.password}">
                             <f:validateRegex pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&amp;*-]).{8,}$" />
                             <f:ajax render="passwordMsg" event="keyup"/>
-                        </p:inputText>
+                        </p:password>
                         <p:message id="passwordMsg" for="password"/>
-                        
+
                     </h:panelGrid>
-                    
-                    <p:commandButton value="Registrieren" id="registration-button" update="registration-grid" action="#{registrationBean.register}"  validateClient="true"/>
+
+                    <p:outputLabel id="registration-button-label"/>
+                    <p:commandButton value="Registrieren" id="registration-button" update="registration-grid growl-sticky" action="#{registrationBean.register}"  validateClient="true"/>
+                    <p:message id="registration-button-msg" for="registration-button-label"/> 
                     
                 </h:form>
 

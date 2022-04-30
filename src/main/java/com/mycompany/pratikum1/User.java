@@ -10,6 +10,7 @@ package com.mycompany.pratikum1;
  */
 public class User {
     
+ 
     private String salutation;
     private String name;
     private String surname;
@@ -17,7 +18,6 @@ public class User {
     private String phone;
     private String username;
     private String password;
-    private String repeatedPassword; // Unnötig muss nicht gespeichert sondern nur geprüft werden
     
     public User() {
         
@@ -28,7 +28,7 @@ public class User {
         this.password = password;
     }
     
-    public User(String salutation, String name, String surname, String email, String phone, String username, String password, String repeatedPassword) {
+    public User(String salutation, String name, String surname, String email, String phone, String username, String password) {
         this.salutation = salutation;
         this.name = name;
         this.surname = surname;
@@ -36,7 +36,6 @@ public class User {
         this.phone = phone;
         this.username = username;
         this.password = password;
-        this.repeatedPassword = repeatedPassword;
     }
 
 
@@ -96,13 +95,7 @@ public class User {
         this.password = password;
     }
 
-    public String getRepeatedPassword() {
-        return repeatedPassword;
-    }
 
-    public void setRepeatedPassword(String repeatedPassword) {
-        this.repeatedPassword = repeatedPassword;
-    }
     
 
     

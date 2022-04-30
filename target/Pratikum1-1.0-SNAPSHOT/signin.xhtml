@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"    
+      xmlns:p="http://primefaces.org/ui">
+  
+    <h:body>
+        <ui:composition template="template/master.xhtml">
+            <ui:define name="content">
+                <h:form id="login-form">
+                    <h:panelGrid id="login-grid" columns="3">
+                        
+                        <p:outputLabel for="@next" value="Benutzername"/>
+                        <p:inputText id="username" validator="usernameValidator" required="True" requiredMessage="Pflichtfeld" validatorMessage="Keine Sonderzeichen; Mind. Länge 1 Zeichen"  value="#{loginBean.username}">
+                            <f:validateRegex pattern="[a-zA-Z]+"/>
+                            <f:ajax render="nameMsg"  event="keyup"/>
+                        </p:inputText>
+                        <p:message id="nameMsg" for="username"/>
+
+                        <p:outputLabel for="@next" value="Passwort"/>
+                        <p:inputText id="password" validator="surnameValidator" required="True" requiredMessage="Pflichtfeld" validatorMessage="Keine Sonderzeichen; Mind. Länge 1 Zeichen" value="#{loginBean.password}">
+                            <f:validateRegex pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&amp;*-]).{8,}$"/>
+                            <f:ajax render="password-msg" event="keyup"/>  
+                        </p:inputText>
+                        <p:message id="password-msg" for="password"/>
+
+                      
+
+                    </h:panelGrid>
+
+                    <p:commandButton value="Anmelden" id="login-button" update="login-grid" action="#{loginBean.login}"  validateClient="true"/>
+                    <p:message id="login-button-msg" for="login-button"/> 
+                    
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
